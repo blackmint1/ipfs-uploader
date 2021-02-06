@@ -18,7 +18,7 @@
   "homepage": "https://github.com/blackmint1/ipfs-uploader#readme",
   "dependencies": {
     "fs": "0.0.1-security",
-    "ipfs-mini": "^1.1.5",
+    "ipfs-api": "^26.1.2",
     "path": "^0.12.7"
   }
 }

@@ -1,8 +1,10 @@
 
 const fs = require("fs")
 const path = require("path")
-const IPFS = require('ipfs-mini');
-const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+/* const IPFS = require('ipfs-mini');
+const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }); */
+var ipfsAPI = require('ipfs-api')
+var ipfs = ipfsAPI('ipfs.infura.io', '5001', {protocol: 'https'})
 
 function getAllFiles(dirPath, originalPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath)
@@ -36,22 +38,24 @@ function getAllFiles(dirPath, originalPath, arrayOfFiles) {
 
 function getBufferFromFile(filePath){
   return new Promise((resolve, reject) => {
-    var fs = require('fs');
-    const buf = fs.readFile(process.argv[2], function (err, data) {
-      if (err) throw err;
-      resolve(data);
-    });
+    var data = new Buffer(fs.readFileSync(filePath));
+    resolve(data);
   });
 }
 
 async function run() {
   try{
     const buf = await getBufferFromFile(process.argv[2]);
-    const hash = await ipfs.add(buf)
-    console.log("HASH for this file:")
-    console.log(hash)
-    let url = `https://ipfs.io/ipfs/${hash}`
-    console.log(`Url --> ${url}`)
+    ipfs.add(buf, function (err,file){
+      if(err){
+          console.log(err);
+      }
+      console.log("HASH for this file:")
+      console.log(file[0].hash)
+      let url = `https://ipfs.io/ipfs/${file[0].hash}`
+      console.log(`Url --> ${url}`)
+    })
+
   } catch(error){
     console.log(error)
   }
