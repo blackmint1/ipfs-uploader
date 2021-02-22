@@ -4,7 +4,8 @@ const path = require("path")
 /* const IPFS = require('ipfs-mini');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }); */
 var ipfsAPI = require('ipfs-api')
-var ipfs = ipfsAPI('ipfs.infura.io', '5001', {protocol: 'https'})
+var ipfs = ipfsAPI('rising-star-ipfs.eastus.azurecontainer.io', '5001', {protocol: 'http'})
+//const ipfsClient = require('ipfs-http-client')
 
 function getAllFiles(dirPath, originalPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath)
