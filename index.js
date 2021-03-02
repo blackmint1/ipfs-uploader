@@ -53,7 +53,7 @@ async function run() {
       }
       console.log("HASH for this file:")
       console.log(file[0].hash)
-      let url = `https://ipfs.io/ipfs/${file[0].hash}`
+      let url = `http://rising-star-ipfs.eastus.azurecontainer.io:8080/ipfs/${file[0].hash}`
       console.log(`Url --> ${url}`)
     })
 
